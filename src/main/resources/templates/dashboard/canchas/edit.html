@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<head>
+	<style>
+	    .acciones button {
+	      margin-right: 5px;
+	    }
+	  </style>
+</head>
+<body>
+
+<div th:fragment="contenido">
+	<h2 class="mb-4"><b>Modificar Registo de Canchas Deportivas</b></h2>
+	  <hr>
+	  <!-- Formulario Crear / Editar -->
+	  <form id="formCancha" class="row g-3 mb-4" th:action="@{/dashboard/canchas/save}" th:object="${canchas}"  method="post">
+	    <input type="hidden" id="id" name="id" th:field="*{id}">
+
+	    <div class="col-md-6">
+	      <label for="nombre" class="form-label">Descripción</label>
+	      <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Ej: Cancha 1" required>
+	    </div>
+		<div class="col-md-6">
+		  <label for="descripcion" class="form-label">Tipo de Cancha</label>
+		  <select class="form-select" id="descripcion" name="descripcion" th:field="*{descripcion}">
+		    <option value="">-- Selecciona un tipo --</option>
+		    <option th:value="Fútbol" th:text="'Fútbol'"></option>
+		    <option th:value="Vóley" th:text="'Vóley'"></option>
+		  </select>
+		</div>
+	    <div class="col-md-3">
+	      <label for="estado" class="form-label">Estado</label>
+	      <select id="estado" class="form-select" name="estado" th:field="*{estado}">
+	        <option th:value="true" th:text="'Activo'"></option>
+	        <option th:value="false" th:text="'Inactivo'"></option>
+	      </select>
+	    </div>
+
+	    <div class="col-12 text-end">
+	      <button type="submit" class="btn btn-primary">Guardar</button>
+	      <button type="reset" class="btn btn-secondary">Limpiar</button>
+	    </div>
+	  </form>
+	
+	
+</div>
+
+</body>
+</html>

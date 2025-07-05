@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-front/base :: base(~{::body})}">
+	<head>
+	  <title>Registro de Cliente Usuario</title>
+		<style>
+		    header {
+		      background-color: #004d40;
+		      padding: 15px 0;
+		    }
+		    header h1 {
+		      color: #fff;
+		      margin-left: 20px;
+		      font-weight: bold;
+		    }
+		    .navbar-nav a {
+		      color: white !important;
+		      margin-right: 20px;
+		    }
+		    footer {
+		      background-color: #00251a;
+		      color: white;
+		      text-align: center;
+		      padding: 20px 0;
+		      margin-top: 40px;
+		    }
+		    .main-title {
+		      margin-top: 40px;
+		    }
+		    .form-container {
+		      max-width: 650px;
+		      margin: auto;
+		      background-color: white;
+		      padding: 30px;
+		      margin-top: 40px;
+		      border-radius: 10px;
+		      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+		    }
+		  </style>
+	</head>
+<body>
+<div style="display: flex;   justify-content: space-evenly;">
+
+	 <div th:fragment="contenido" class="form-container" style="	padding: 50px;border-radius: 15px;border: 1px solid rgb(192, 192, 192);width: 60%;">
+	    <h3 class="text-center mb-4">Regístrate como Cliente</h3>
+
+	    <form method="POST" action="/registro/cliente">
+	      <!-- Datos de Persona -->
+	      <div class="mb-3">
+	        <label for="nombres" class="form-label">Nombres</label>
+	        <input type="text" class="form-control" id="nombres" name="nombres" required>
+	      </div>
+
+	      <div class="mb-3">
+	        <label for="apellidos" class="form-label">Apellidos</label>
+	        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+	      </div>
+
+	      <div class="mb-3">
+	        <label for="dni" class="form-label">DNI</label>
+	        <input type="text" class="form-control" id="dni" name="dni" maxlength="8" required>
+	      </div>
+
+	      <div class="mb-3">
+	        <label for="telefono" class="form-label">Teléfono</label>
+	        <input type="text" class="form-control" id="telefono" name="telefono">
+	      </div>
+
+	      <div class="mb-3">
+	        <label for="direccion" class="form-label">Dirección</label>
+	        <input type="text" class="form-control" id="direccion" name="direccion">
+	      </div>
+
+	      <!-- Datos de Usuario -->
+	      <div class="mb-3">
+	        <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
+	        <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+	      </div>
+
+	      <div class="mb-3">
+	        <label for="contraseña" class="form-label">Contraseña</label>
+	        <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+	      </div>
+
+	      <!-- Campos ocultos -->
+	      <input type="hidden" name="estado" value="1">
+	      <input type="hidden" name="rol" value="3"> <!-- 3 = Cliente (esto se valida en backend) -->
+
+	      <div class="d-grid mt-4">
+	        <!-- <button type="submit" class="btn btn-success">Registrarme</button> -->
+	         <a href="/cliente/reserva" class="btn btn-success">Registrarme</a>
+	      </div>
+	    </form>
+	  </div>
+</div>
+</body>
+</html>

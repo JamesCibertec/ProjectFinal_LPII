@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<body>
+
+<div th:fragment="contenido">
+	<h2 class="mb-4"><b>Modificar Clientes</b></h2>
+	  <hr>
+	  <!-- Formulario Crear / Editar -->
+	  <form id="formCliente" class="row g-3 mb-4" th:action="@{/dashboard/clientes/save}"  method="post"  th:object="${clientes}">
+	    <input type="hidden" name="id" id="id" th:field="*{id}">
+
+	    <div class="col-md-6">
+	      <label for="nombres" class="form-label">Nombres</label>
+	      <input type="text" class="form-control" id="nombres" name="nombres" th:field="*{nombres}" required>
+	    </div>
+
+	    <div class="col-md-6">
+	      <label for="apellidos" class="form-label">Apellidos</label>
+	      <input type="text" class="form-control" id="apellidos" name="apellidos" th:field="*{apellidos}" required>
+	    </div>
+
+	    <div class="col-md-4">
+	      <label for="dni" class="form-label">DNI</label>
+	      <input type="text" class="form-control" id="dni" name="dni" th:field="*{dni}" required>
+	    </div>
+
+	    <div class="col-md-4">
+	      <label for="telefono" class="form-label">Teléfono</label>
+	      <input type="text" class="form-control" id="telefono" name="telefono" th:field="*{telefono}">
+	    </div>
+
+	    <div class="col-md-4">
+	      <label for="direccion" class="form-label">Dirección</label>
+	      <input type="text" class="form-control" id="direccion" name="direccion" th:field="*{direccion}">
+	    </div>
+
+	    <div class="col-md-3">
+	      <label for="estado" class="form-label">Estado</label>
+	      <select id="estado" class="form-select" name="estado" th:field="*{estado}">
+	        <option value="1">Activo</option>
+	        <option value="0">Inactivo</option>
+	      </select>
+	    </div>
+
+	    <div class="col-12 text-end">
+	      <button type="submit" class="btn btn-primary">Guardar</button>
+	      <button type="reset" class="btn btn-secondary">Limpiar</button>
+	    </div>
+	  </form>	
+	
+</div>
+
+</body>
+</html>

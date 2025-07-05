@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<head>
+	<style>
+	    .acciones button {
+	      margin-right: 5px;
+	    }
+	  </style>
+</head>
+<body>
+
+<div th:fragment="contenido">
+	<!-- Tabla Tipos de Pago -->
+	  <h4>Listado de Tipos de Pago</h4>
+	    <a type="button" class="btn btn-sm btn-outline-success" th:href="@{/dashboard/tipoPago/create}">Nuevo Tipo de Pago</a><br><br>
+	  <table class="table table-bordered table-striped" style="text-align: center;">
+	    <thead>
+	      <tr>
+	        <th>ID</th>
+	        <th>Descripción</th>
+	        <th>Estado</th>
+	        <th>Acciones</th>
+	      </tr>
+	    </thead>
+	    <tbody id="tablaPagos">
+	      <!-- Ejemplo -->
+	      <tr th:each="tipoPago : ${tipoPagos}">
+	        <td th:text="${tipoPago.id}"></td>
+	        <td th:text="${tipoPago.descripcion}"></td>
+			<td><span th:classappend="${tipoPago.estado} ? 'badge bg-success' : 
+					   						'badge bg-danger text-white'" 
+					   						th:text="${tipoPago.estado} ? 'Activo' : 'Inactivo'" ></span></td>
+	        <td class="acciones">
+	          <a th:href="@{'/dashboard/tipoPago/edit/'+${tipoPago.id}}" class="btn btn-sm btn-outline-primary me-1">Modificar</a>
+			  <a th:href="@{'/dashboard/tipoPago/delete/'+${tipoPago.id}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Deseas eliminar este Registro?')">Eliminar</a>
+	        </td>
+	      </tr>
+	    </tbody>
+	  </table>	
+</div>
+
+</body>
+</html>

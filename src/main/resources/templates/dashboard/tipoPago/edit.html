@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<body>
+
+<div th:fragment="contenido">
+	<h2><b>Modificar Tipos de Pago</b></h2>
+	<hr>
+	<!-- Formulario Crear / Editar -->
+	<form id="formPago" class="row g-3 mb-4" th:action="@{/dashboard/tipoPago/save}" th:object="${tipoPago}"  method="post">
+	  <input type="hidden" id="id" name="id" th:field="*{id}">
+	  <div class="col-md-6">
+	    <label for="descripcion" class="form-label">Descripción</label>
+	    <input type="text" class="form-control" th:field="*{descripcion}" id="descripcion"  name="descripcion" placeholder="Ej: Yape, Efectivo, Transferencia" required>
+	  </div>
+
+	  <div class="col-md-3">
+	    <label for="estado" class="form-label">Estado</label>
+	    <select id="estado" class="form-select" name="estado" th:field="*{estado}">
+			<option th:value="true" th:text="'Activo'">	</option>		
+			<option th:value="false" th:text="'Inactivo'"></option>
+	    </select>
+	  </div>
+
+	  <div class="col-12 text-end">
+	    <button type="submit" class="btn btn-primary">Guardar</button>
+	    <button type="reset" class="btn btn-secondary">Limpiar</button>
+	  </div>
+	</form>
+	
+</div>
+
+</body>
+</html>

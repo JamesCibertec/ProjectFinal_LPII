@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<body>
+
+<div th:fragment="contenido">
+	<h2 class="mb-4"><b>Consulta de Reservas y Alquileres</b></h2>
+	<hr>
+		
+	                        <!-- 🔎 Filtros -->
+	                        <form th:action="@{/dashboard/consultar/filtrar}" method="get" class="row g-3 mb-4">
+	                            <div class="col-md-4">
+	                            <label for="fecha" class="form-label">Fecha</label>
+	                            <input type="date" class="form-control" id="fecha" name="fecha">
+	                            </div>
+	                            <div class="col-md-4">
+	                            <label for="estado" class="form-label">Tipo</label>
+	                            <select class="form-select" id="estado" name="estado">
+	                                <option value="">Todos</option>
+	                                <option value="Reservado">Solo Reservas</option>
+	                                <option value="Alquilado">Solo Alquileres</option>
+	                            </select>
+	                            </div>
+	                            <div class="col-md-4 d-flex align-items-end">
+	                            <button type="submit" class="btn btn-primary">Filtrar</button>
+	                            </div>
+	                        </form>
+
+	                        <!-- 📋 Tabla de resultados -->
+	                        <table class="table table-bordered table-hover align-middle" style="text-align: center;">
+	                            <thead class="table-dark">
+	                            <tr>
+	                                <th>#</th>
+	                                <th>Cliente</th>
+	                                <th>Cancha</th>
+	                                <th>Fecha</th>
+	                                <th>Horario</th>
+	                                <th>Estado</th>
+	                                <th>Pago</th>
+	                                <th>Monto</th>
+	                                <th>Acciones</th>
+	                            </tr>
+	                            </thead>
+	                            <tbody>
+	                            <!-- Ejemplo: Alquiler -->
+	                            <tr th:each="aux : ${auxs}")>
+	                                <td th:text="${aux.id_reserva}"></td>
+	                                <td th:text="${aux.cliente.nombres+' '+aux.cliente.apellidos}"></td>
+	                                <td th:text="${aux.canchas.nombre+' - '+aux.canchas.descripcion}"></td>
+	                                <td th:text="${aux.fecha}"></td>
+	                                <td th:text="${aux.hora_inicio+' - '+aux.hora_fin}"></td>
+									<td>
+									  <span th:classappend="${aux.estado == 'Alquilado'} ? 'badge bg-success' : 
+									                        'badge bg-warning text-dark'"
+									        th:text="${aux.estado}"></span>
+									</td>
+									
+	                                <td><span th:classappend="${aux.tipopago != null} ? '' : 'badge bg-danger text-white'"
+										th:text="${aux.tipopago != null ? aux.tipopago.descripcion : 'Pendiente de Pago'}"></span></td>
+	                                <td th:text="${aux.monto}"></td>
+									<td>
+									  <!-- Si está reservado -->
+									  <div th:if="${aux.estado == 'Reservado'}">
+									    <a th:href="@{'/dashboard/alquiler/confirm/'+${aux.id_reserva}}" class="btn btn-outline-success btn-sm">Alquilar</a>
+									    <a th:href="@{'/dashboard/reserva/edit/'+${aux.id_reserva}}" class="btn btn-outline-info btn-sm" onclick="return confirm('¿Deseas Modificar esta Reserva?')">Modificar</a>
+									    <a th:href="@{'/dashboard/reserva/delete/'+${aux.id_reserva}}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Deseas Cancelar esta Reserva?')">Cancelar</a>
+										<a th:href="@{'/reportes/reserva/'+${aux.id_reserva}}" class="btn btn-outline-dark btn-sm">Imprimir</a>
+									  </div>
+
+									  <!-- Si está alquilado -->
+									  <div th:if="${aux.estado == 'Alquilado'}">
+									    <a th:href="@{'/dashboard/alquiler/edit/'+${aux.id_reserva}}" class="btn btn-outline-info btn-sm" onclick="return confirm('¿Deseas Modifcar este Alquiler?')" >Modificar</a>
+									    <a th:href="@{'/reportes/reserva/'+${aux.id_reserva}}" class="btn btn-outline-dark btn-sm">Imprimir</a>
+									  </div>
+									</td>
+	                            </tr>
+	                            </tbody>
+								<tfoot>
+									<tr >
+										<td class="table-dark" colspan="7"><h5><strong>Total:</strong> S/. </h5></td>
+										<td class="table-warning"><span th:text="${#numbers.formatDecimal(totalMonto, 1, 'POINT', 2, 'POINT')}">0.00</span></td>
+									</tr>
+								</tfoot>
+	                        </table>
+	
+	
+</div>
+
+</body>
+</html>

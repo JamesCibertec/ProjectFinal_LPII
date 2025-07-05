@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<head>
+	<style>
+	    .acciones button {
+	      margin-right: 5px;
+	    }
+	  </style>
+</head>
+<body>
+
+<div th:fragment="contenido">
+	<!-- Tabla Listar Clientes -->
+	  <h4>Listado de Clientes</h4>
+	   <a type="button" class="btn btn-sm btn-outline-success" th:href="@{/dashboard/clientes/create}">Nuevo Cliente</a><br><br>
+	  <table class="table table-bordered table-striped" style="text-align: center;">
+	    <thead>
+	      <tr>
+	        <th>ID</th>
+	        <th>Nombres</th>
+	        <th>Apellidos</th>
+	        <th>DNI</th>
+	        <th>Teléfono</th>
+	        <th>Dirección</th>
+	        <th>Estado</th>
+	        <th>Acciones</th>
+	      </tr>
+	    </thead>
+	    <tbody id="tablaClientes">
+	      <!-- Datos de ejemplo -->
+	      <tr th:each="cliente : ${clientes}">
+	        <td th:text="${cliente.id}"></td>
+	        <td th:text="${cliente.nombres}"></td>
+	        <td th:text="${cliente.apellidos}"></td>
+	        <td th:text="${cliente.dni}"></td>
+	        <td th:text="${cliente.telefono}"></td>
+	        <td th:text="${cliente.direccion}"></td>
+			<td><span th:classappend="${cliente.estado} ? 'badge bg-success' : 
+					   						'badge bg-danger text-white'" 
+					   						th:text="${cliente.estado} ? 'Activo' : 'Inactivo'" ></span></td>
+	        <td class="acciones">
+	          <a th:href="@{'/dashboard/clientes/edit/'+${cliente.id}}" class="btn btn-sm btn-outline-primary me-1">Modificar</a>
+	          <a th:href="@{'/dashboard/clientes/delete/'+${cliente.id}}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Deseas eliminar este Cliente?')">Eliminar</a>
+	        </td>
+	      </tr>
+	    </tbody>
+	  </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reserva_detalle" pageWidth="226" pageHeight="566" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12345678-1234-1234-1234-1234567890ab">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="reserva_id" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT 
+          r.id_reserva,
+          c.nombres AS cliente,
+          ca.nombre AS canchas,
+          r.fecha,
+            DATE_FORMAT(r.hora_inicio, '%H:%i') AS hora_inicio,  -- Formatea hora a string HH:mm
+  			DATE_FORMAT(r.hora_fin, '%H:%i') AS hora_fin,
+          r.estado,
+          tp.descripcion AS tipo_pago,
+          r.monto
+        FROM reservas r
+        JOIN cliente c ON r.id_cliente = c.id
+        JOIN cancha ca ON r.id_cancha = ca.id
+        LEFT JOIN tipo_pago tp ON r.tipo_pago_id = tp.id
+        WHERE r.id_reserva = $P{reserva_id}]]>
+	</queryString>
+	<field name="id_reserva" class="java.lang.Long"/>
+	<field name="cliente.nombres" class="java.lang.String"/>
+	<field name="canchas.nombre" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="hora_inicio" class="java.lang.String"/>
+	<field name="hora_fin" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="tipopago.descripcion" class="java.lang.String"/>
+	<field name="monto" class="java.math.BigDecimal"/>
+	<title>
+		<band height="50">
+			<staticText>
+				<reportElement x="-20" y="10" width="220" height="30" uuid="16cecbac-b8cd-4fdb-99ee-ff2fc0de62cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle de Reserva]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="200">
+			<textField>
+				<reportElement x="0" y="10" width="200" height="20" uuid="f4332080-ccbb-4648-9c55-bda29d6829fb"/>
+				<textFieldExpression><![CDATA["Cliente: " + $F{cliente.nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="35" width="200" height="20" uuid="c9eae02b-8730-4e2c-bae4-8c1a91e7daa6"/>
+				<textFieldExpression><![CDATA["Cancha: " + $F{canchas.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="300" height="20" uuid="98a8ccfb-fa35-4b22-b931-17cb67bef1e2"/>
+				<textFieldExpression><![CDATA["Fecha: " + $F{fecha}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="85" width="206" height="20" uuid="cc4f9c24-01f1-49c9-9d6f-a402136411eb"/>
+				<textFieldExpression><![CDATA["Horario: " + $F{hora_inicio} + " - " + $F{hora_fin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="110" width="300" height="20" uuid="dcd05d63-7127-42cb-951e-777757fedbbe"/>
+				<textFieldExpression><![CDATA["Estado: " + $F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="135" width="300" height="20" uuid="d07871e6-6842-472d-940c-03b0c726c68f"/>
+				<textFieldExpression><![CDATA["Tipo de Pago: " + $F{tipopago.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="160" width="300" height="20" uuid="2ef8221b-17c6-45db-941e-a490c3ed6b86"/>
+				<textFieldExpression><![CDATA["Monto: S/. " + $F{monto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

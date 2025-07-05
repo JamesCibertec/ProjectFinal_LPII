@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout-back/basedashboard :: base(~{::body})}">
+<head>
+	<style>
+	    .acciones button {
+	      margin-right: 5px;
+	    }
+	  </style>
+</head>
+<body>
+
+<div th:fragment="contenido">
+	<!-- Tabla Usuarios -->
+	<h4>Listado de Usuarios</h4>
+	<a type="button" class="btn btn-sm btn-outline-success" th:href="@{/dashboard/usuarios/create}">Nuevo Usuario</a><br><br>
+	<h2 th:text="'Usuarios encontrados: ' + ${usuarios.size()}"></h2>
+	<table class="table table-bordered table-striped" style="text-align: center;">
+	  <thead>
+	    <tr>
+	      <th>ID</th>
+	      <th>Usuario</th>
+	      <th>Nombres</th>
+	      <th>Apellidos</th>
+	      <th>DNI</th>
+	      <th>Rol</th>
+	      <th>Estado</th>
+	      <th>Acciones</th>
+	    </tr>
+	  </thead>
+	  <tbody id="tablaUsuarios">
+	    <tr th:each="usuario : ${usuarios}")>
+			
+	      <td th:text="${usuario.id}"></td>
+	      <td th:text="${usuario.nombreusuario}"></td>
+	      <td th:text="${usuario.nombres}"></td>
+	      <td th:text="${usuario.apellidos}"></td>
+	      <td th:text="${usuario.dni}"></td>
+	      <td th:text="${usuario.rol != null ? usuario.rol.nombre : 'Sin rol'}"></td>
+		  <td><span th:classappend="${usuario.estado} ? 'badge bg-success' : 
+		  	   						'badge bg-danger text-white'" 
+		  	   						th:text="${usuario.estado} ? 'Activo' : 'Inactivo'" ></span></td>
+	      <td>
+	        <a th:href="@{'/dashboard/usuarios/edit/'+${usuario.id}}" class="btn btn-sm btn-warning">Editar</a>
+	        <a th:href="@{'/dashboard/usuarios/delete/'+${usuario.id}}" class="btn btn-sm btn-danger" onclick="return confirm('¿Deseas eliminar este Registro?')">Eliminar</button>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>	
+</div>
+
+</body>
+</html>
