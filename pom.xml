@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -56,10 +56,10 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports</artifactId>
-		    <version>6.21.0</version> 
-		</dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports</artifactId>
+    <version>6.21.0</version> <!-- O usa la última disponible -->
+</dependency>
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
